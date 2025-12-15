@@ -1,0 +1,110 @@
+
+@media (max-width: 768px) {
+    /* Просто уменьшаем все размеры пропорционально */
+    
+    body {
+        width: 100vw;
+        height: 100vh;
+        background-color: #FFFBF4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Krona One", sans-serif;
+        padding: 20px;
+        overflow: auto;
+    }
+    
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Было 50px на десктопе */
+        z-index: 2;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .menu-item {
+        font-size: 24px; /* Было 40px на десктопе */
+        color: #000;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        position: relative;
+        text-align: center;
+        padding: 8px 0; /* Было 10px 0 */
+        width: 100%;
+    }
+    
+    .menu-item:hover {
+        color: #FFFBF4; /* Эффект остаётся для устройств с мышью */
+    }
+    
+    /* Превью-боксы уменьшаем пропорционально */
+    .preview-box {
+        position: absolute;
+        width: 400px; /* Было 1310px на десктопе */
+        height: 80px; /* Было 100px */
+        display: none;
+        z-index: -1;
+        pointer-events: none;
+        transform: translateX(-50%);
+        left: 50%;
+        top: 50%;
+        margin-top: -40px; /* Половина от новой высоты */
+        overflow: hidden;
+    }
+    
+    .preview-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    /* Активация превью при тапе на мобильных */
+    .menu-item.active .preview-box {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Для очень маленьких экранов делаем ещё меньше */
+    @media (max-width: 480px) {
+        .menu {
+            gap: 12px;
+        }
+        
+        .menu-item {
+            font-size: 20px;
+            padding: 6px 0;
+        }
+        
+        .preview-box {
+            width: 300px;
+            height: 60px;
+            margin-top: -30px;
+        }
+    }
+    
+    /* Горизонтальная ориентация */
+    @media (max-width: 768px) and (orientation: landscape) {
+        .menu {
+            gap: 10px;
+        }
+        
+        .menu-item {
+            font-size: 20px;
+        }
+        
+        .preview-box {
+            width: 350px;
+            height: 70px;
+        }
+    }
+}

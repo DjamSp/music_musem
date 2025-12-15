@@ -1,0 +1,70 @@
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFFBF4; /* Молочный фон */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Krona One;
+}
+
+.krona-one-regular {
+    font-family: "Krona One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Krona One';
+    src: url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    z-index: 2;
+    position: relative;
+}
+
+.menu-item {
+    font-size: 40px;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.menu-item:hover {
+    color: #FFFBF4;
+}
+
+.preview-box {
+    position: absolute;
+    width: 1310px;
+    height: 100px;;
+    display: none;
+    z-index: -1;
+    pointer-events: none;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 50%;
+    margin-top: -50px;
+    overflow: hidden;
+}
+
+.preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}

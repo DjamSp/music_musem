@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Navigation</title>
+    <link href="menu_style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    <link href="menu_mobile.css" rel="stylesheet"
+</head>
+<body>
+    <div class="menu">
+        <div class="menu-item">
+            Home
+            <a href="../index/index.html" class="preview-box" id="preview-home">
+                <img src="../images/home_menu.webp" alt="Home">
+            </a>
+        </div>
+        <div class="menu-item">
+            The history of world music
+            <a href="../index/index.html#history" class="preview-box" id="preview-history">
+                <img src="../images/history_menu.webp" alt="History">
+            </a>
+        </div>
+        <div class="menu-item">
+            World music styles
+            <a href="../index/index.html#country" class="preview-box" id="preview-styles">
+                <img src="../images/country_menu.webp" alt="Styles">
+            </a>
+        </div>
+        <div class="menu-item">
+            Musical artifacts
+            <a href="../index/index.html#artifacts" class="preview-box" id="preview-artifacts">
+                <img src="../images/instrument_menu.webp" alt="Artifacts">
+            </a>
+        </div>
+        <div class="menu-item">
+            Famous musicians
+            <a href="../index/index.html#artist" class="preview-box" id="preview-musicians">
+                <img src="../images/artist_menu.webp" alt="Musicians">
+            </a>
+        </div>
+        <div class="menu-item">
+            Articles
+            <a href="../index/index.html#articals" class="preview-box" id="preview-articles">
+                <img src="../images/artical_menu.webp" alt="Articles">
+            </a>
+        </div>
+    <script>
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        menuItems.forEach(item => {
+            const previewBox = item.querySelector('.preview-box');
+            
+            if (previewBox) {
+                item.addEventListener('mouseenter', () => {
+                    previewBox.style.display = 'block';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    previewBox.style.display = 'none';
+                });
+            }
+            
+            item.addEventListener('click', (e) => {
+            // Если клик был по самой ссылке - не обрабатываем
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                return; // Позволяем браузеру обработать переход по ссылке
+            }
+            
+            const text = item.firstChild.textContent.trim();
+            console.log(`Clicked: ${text}`);
+            
+            // Если нужно программно перейти по ссылке
+            const link = item.querySelector('a');
+            if (link) {
+                window.location.href = link.href;
+            }
+        });
+        });
+    </script>
+</body>
+</html>
