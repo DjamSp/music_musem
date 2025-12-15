@@ -426,16 +426,16 @@ h3 {
     justify-content: center;
     margin-bottom: 20px;
 }
-.square-1 {background-image: url('../images/india.webp');}
-.square-2 {background-image: url('../images/china.webp');}
-.square-3 {background-image: url('../images/russia.webp');}
-.square-4 {background-image: url('../images/spain.webp');}
+.square-1 {background-image: url('./images/india.webp');}
+.square-2 {background-image: url('./images/china.webp');}
+.square-3 {background-image: url('./images/russia.webp');}
+.square-4 {background-image: url('./images/spain.webp');}
 .square-5 {background-image: url('../images/africa.webp');}
-.square-1:hover {background-image: url('../images/india2.webp');}
-.square-2:hover {background-image: url('../images/china2.webp');}
-.square-3:hover {background-image: url('../images/russia2.webp');}
-.square-4:hover {background-image: url('../images/spain2.webp');}
-.square-5:hover {background-image: url('../images/africa2.webp');}
+.square-1:hover {background-image: url('./images/india2.webp');}
+.square-2:hover {background-image: url('./images/china2.webp');}
+.square-3:hover {background-image: url('./images/russia2.webp');}
+.square-4:hover {background-image: url('./images/spain2.webp');}
+.square-5:hover {background-image: url('./images/africa2.webp');}
 
 /* Эффект при наведении - превращение в круг и увеличение */
 .square:hover {border-radius: 50%;}
@@ -1018,4 +1018,5 @@ h3 {
     position: relative;
     z-index: 2;
     background: #FFFBF4;
+
 }
