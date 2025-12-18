@@ -1,0 +1,479 @@
+
+  /* ================= МОБИЛЬНАЯ ВЕРСИЯ (до 768px) ================= */
+  @media (max-width: 768px) {
+    /* ОСНОВНЫЕ ОТСТУПЫ */
+    .page {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    
+    /* КНОПКИ HOME и MENU - 20px */
+    .home-btn, .menu-btn {
+      font-size: 20px !important;
+      font-weight: 600;
+    }
+    
+    /* ТОП-БАР */
+    .top-bar {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 15px !important;
+      padding-top: 20px !important;
+      margin-bottom: 30px !important;
+      align-items: center;
+    }
+    
+    .home-btn {
+      order: 1;
+    }
+    
+    .search-wrapper {
+      order: 3;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .top-right {
+      order: 2;
+      margin-left: auto;
+      gap: 12px;
+    }
+    
+    .search-box {
+      padding: 10px 15px !important;
+      border-width: 2px !important;
+    }
+    
+    .search-go {
+      padding: 10px 15px !important;
+      font-size: 12px !important;
+    }
+    
+    .info-circle {
+      width: 25px;
+      height: 25px;
+      border-width: 2px;
+    }
+    
+    /* СЕКЦИЯ АРТИСТА */
+    .artist-section {
+      grid-template-columns: 1fr !important;
+      gap: 25px !important;
+      margin-bottom: 40px !important;
+    }
+    
+    .artist-name {
+      font-size: 32px !important;
+      line-height: 1.1;
+    }
+    
+    .tags {
+      font-size: 16px !important;
+      margin-bottom: 15px;
+    }
+    
+    .artist-label {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .artist-photo-large {
+      width: 100% !important;
+      height: 280px !important;
+      order: -1;
+    }
+    
+    .artist-right {
+      align-items: flex-start;
+    }
+    
+    .artist-bio {
+      font-size: 14px !important;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+    
+    .artist-meta-container {
+      flex-direction: column;
+      gap: 25px !important;
+      margin-top: 0;
+    }
+    
+    .artist-meta {
+      position: static !important;
+      width: 100% !important;
+    }
+    
+    .meta-item {
+      margin-bottom: 15px;
+    }
+    
+    .meta-label {
+      font-size: 13px;
+    }
+    
+    .meta-value {
+      font-size: 13px;
+    }
+    
+    .album-mini {
+      width: 150px !important;
+      height: 150px !important;
+    }
+    
+    /* АЛЬБОМЫ - МЕНЬШЕ И ПРОЩЕ */
+    .albums-section {
+      padding: 30px 10px !important;
+      margin-bottom: 60px !important;
+    }
+    
+    .section-title {
+      font-size: 28px !important;
+      margin-bottom: 25px !important;
+      text-align: center;
+    }
+    
+    .albums-grid {
+      height: auto !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+      max-width: 100% !important;
+      position: static !important;
+    }
+    
+    .album-card {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    /* УБИРАЕМ БОРДЕРЫ И ПАДДИНГИ ДЛЯ МОБИЛЬНЫХ */
+    .bod, .bod1 {
+      height: auto !important;
+      padding: 0 !important;
+      border: none !important;
+    }
+    
+    /* СБРАСЫВАЕМ ВСЕ ПОЗИЦИИ АЛЬБОМОВ */
+    .card-1, .card-2, .card-3, .card-4,
+    .card-5, .card-6, .card-7, .card-8,
+    .card-9, .card-10 {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    .album-cover {
+      padding-bottom: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    /* SIMILAR ARTIST - КАРУСЕЛЬ С ПЕРЕТАСКИВАНИЕМ */
+    .artistfav {
+      margin-bottom: 60px !important;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      padding: 0 5px;
+    }
+    
+    .allder {
+      display: flex !important;
+      gap: 15px !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+      padding: 15px 10px 30px !important;
+      margin: 0 !important;
+      max-width: 100% !important;
+      scrollbar-width: none;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .allder:active {
+      cursor: grabbing;
+    }
+    
+    .allder::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .allder.dragging {
+      scroll-snap-type: none;
+      cursor: grabbing;
+    }
+    
+    .item2 {
+      width: 140px !important;
+      flex-shrink: 0 !important;
+      scroll-snap-align: start;
+      margin-bottom: 0 !important;
+    }
+    
+    /* КВАДРАТЫ МЕНЬШЕ */
+    .square {
+      width: 140px !important;
+      height: 140px !important;
+      border-width: 3px !important;
+      margin-bottom: 12px !important;
+    }
+    
+    .subtitle {
+      font-size: 16px !important;
+    }
+    
+    /* ИНДИКАТОРЫ КАРУСЕЛИ */
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding-bottom: 10px;
+    }
+    
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: #00F5FF;
+      transform: scale(1.2);
+    }
+    
+    /* ПЛЕЕР */
+    .player-bar {
+      padding: 15px !important;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 40px !important;
+      border-radius: 10px;
+    }
+    
+    .player-left {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .player-cover {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .player-progress-row {
+      width: 100% !important;
+      position: static !important;
+      transform: none !important;
+      margin: 8px 0 !important;
+    }
+    
+    .player-track-title {
+      font-size: 14px;
+    }
+    
+    .player-track-artist {
+      font-size: 12px;
+    }
+    
+    .player-range {
+      height: 3px;
+    }
+    
+    .player-right {
+      width: 100%;
+      justify-content: center;
+      margin-left: 0 !important;
+      gap: 15px;
+    }
+    
+    .player-btn {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .player-btn.play {
+      width: 40px;
+      height: 40px;
+    }
+    
+    /* ПЕСНИ */
+    .songs-section {
+      margin-bottom: 50px !important;
+    }
+    
+    .songs-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0 !important;
+    }
+    
+    .song-item {
+      padding: 14px 0 !important;
+    }
+    
+    .song-cover-small {
+      width: 45px;
+      height: 45px;
+    }
+    
+    .song-title {
+      font-size: 15px;
+    }
+    
+    .song-artist {
+      font-size: 13px;
+    }
+    
+    .song-duration {
+      font-size: 13px;
+      margin-left: 10px;
+    }
+    
+    .song-number {
+      font-size: 13px;
+      width: 20px;
+    }
+    
+    /* ИНФО О САЙТЕ */
+    .site-info {
+      width: 280px;
+      right: -10px;
+      font-size: 12px;
+      padding: 15px;
+      top: 35px;
+    }
+    
+    /* ЧИТАТЬ ДАЛЕЕ */
+    .read-more {
+      font-size: 14px;
+      margin-top: 5px;
+      display: inline-block;
+      padding: 5px 0;
+    }
+    
+    .artist-extra {
+      font-size: 14px;
+    }
+  }
+  
+  /* ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 480px) */
+  @media (max-width: 480px) {
+    .page {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+    
+    .artist-name {
+      font-size: 28px !important;
+    }
+    
+    .artist-photo-large {
+      height: 220px !important;
+    }
+    
+    .section-title {
+      font-size: 24px !important;
+      margin-bottom: 20px !important;
+    }
+    
+    /* АЛЬБОМЫ - 2 колонки, но меньше отступы */
+    .albums-grid {
+      gap: 10px !important;
+    }
+    
+    /* КАРУСЕЛЬ ЕЩЕ МЕНЬШЕ */
+    .item2 {
+      width: 120px !important;
+    }
+    
+    .square {
+      width: 120px !important;
+      height: 120px !important;
+    }
+    
+    .subtitle {
+      font-size: 14px !important;
+    }
+    
+    /* ПЛЕЕР МЕНЬШЕ */
+    .player-bar {
+      padding: 12px !important;
+    }
+    
+    .player-cover {
+      width: 45px;
+      height: 45px;
+    }
+    
+    .player-btn {
+      width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+    
+    .player-btn.play {
+      width: 38px;
+      height: 38px;
+    }
+    
+    /* ПЕСНИ МЕНЬШЕ */
+    .song-item {
+      padding: 12px 0 !important;
+    }
+    
+    .song-cover-small {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .song-title {
+      font-size: 14px;
+    }
+    
+    .song-artist {
+      font-size: 12px;
+    }
+  }
+  
+  /* ТЕЛЕФОНЫ В АЛЬБОМНОЙ ОРИЕНТАЦИИ */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .artist-section {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 20px !important;
+    }
+    
+    .artist-photo-large {
+      height: 200px !important;
+    }
+    
+    .albums-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .allder {
+      gap: 20px !important;
+    }
+    
+    .item2 {
+      width: 120px !important;
+    }
+    
+    .square {
+      width: 120px !important;
+      height: 120px !important;
+    }
+  }

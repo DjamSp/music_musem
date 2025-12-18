@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Artist page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krona+One&display=swap" rel="stylesheet">
+<link href="allartist.css" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Inter", sans-serif;
+    color: #000000;
+    overflow-x: hidden;
+    background: #FFFBF4;
+  }
+
+  .page {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 101px;
+    padding-right: 101px;
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 50px;
+    width: 100%;
+    padding-top: 40px;
+  }
+
+  .home-btn {
+    font-weight: 700;
+    font-size: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .search-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 999px;
+    border: 5px solid #00F5FF;
+    padding: 20px 20px;
+    background: #fff6ee;
+  }
+
+  .search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+  }
+
+  .search-box input::placeholder {
+    color: #00F5FF;
+  }
+
+  .search-go {
+    padding: 25px 25px;
+    background: #00F5FF;
+    border: none;
+    color: #FFFBF4;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .search-go:active {
+    background: #ff0000;
+  }
+
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .info-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid #bdbdbd;
+    cursor: pointer;
+  }
+
+  .menu-btn {
+    font-weight: 700;
+    font-size: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .site-info {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    margin-top: 10px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    font-size: 12px;
+    width: 300px;
+    z-index: 100;
+  }
+
+  .site-info.visible {
+    display: block;
+  }
+
+  /* ARTIST SECTION */
+  .artist-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    width: 100%;
+  }
+
+  .artist-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .artist-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .artist-label {
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    margin-bottom: 20px;
+    color: #00F5FF;
+  }
+
+  .artist-name {
+    font-family: 'Krona One', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .tags {
+    font-size: 20px;
+    color: #00F5FF;
+    font-style: italic;
+
+  }
+
+  .artist-bio {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #222;
+    margin-bottom: 40px;
+    max-width: 500px;
+  }
+
+  .read-more {
+    color: #00F5FF;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 0px;
+  }
+
+  .artist-extra {
+    display: none;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #222;
+    margin-top: 8px;
+    max-width: 630px;
+  }
+
+  .artist-extra.visible {
+    display: block;
+  }
+
+  .artist-meta-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .artist-meta {
+    position: absolute;
+    flex-direction: column;
+    gap: 20px;
+    left: 641px;
+    top: 300px;
+    width: 300px;
+    flex-shrink: 0;
+  }
+  p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #000000;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-bottom: 10px;
+  }
+
+  .meta-label {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: #000000;
+  }
+
+  .meta-value {
+    font-size: 14px;
+    color: #222;
+  }
+
+  .album-mini {
+    display: flex;
+    width: 230px;
+    height: 230px;
+    background: #ccc;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .artist-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .artist-photo-large {
+    width: 500px;
+    height: 500px;
+    background: #ccc;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* PLAYER BAR */
+  .player-bar {
+    margin-bottom: 80px;
+    padding: 18px 30px;
+    background: #000;
+    color: #FFFBF4;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .player-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+  }
+
+  .player-cover {
+    width: 58px;
+    height: 58px;
+    background: #222;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  .player-track {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .player-track-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .player-track-artist {
+    font-size: 11px;
+    color: #bbbbbb;
+    margin-bottom: 8px;
+  }
+
+  .player-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 400px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .player-time {
+    font-size: 10px;
+    min-width: 40px;
+    flex-shrink: 0;
+  }
+
+  .player-range {
+    flex: 1;
+    accent-color: #00F5FF;
+    height: 4px;
+  }
+
+  .player-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .player-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: #000000;
+    display: flex;
+    color: #00F5FF;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .player-btn.play {
+    background: #00f5ff;
+    color: #000;
+  }
+
+  .player-btn:active {
+    transform: translateY(1px);
+  }
+
+  /* SONGS SECTION */
+  .songs-section {
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  .section-title {
+    font-family: 'Krona One', sans-serif;
+    font-size: 40px;
+    margin-bottom: 50px;
+    font-weight: 700;
+  }
+
+  .songs-grid {
+    display: grid;
+    grid-template-columns: 630px 630px;
+    gap: 80px;
+    width: 100%;
+  }
+
+  .songs-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .song-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .song-item:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .song-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .song-number {
+    font-size: 14px;
+    color: #666;
+    width: 24px;
+    text-align: right;
+  }
+
+  .song-cover-small {
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  .song-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .song-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .song-artist {
+    font-size: 12px;
+    color: #777;
+  }
+
+  .song-duration {
+    font-size: 14px;
+    color: #777;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  /* ALBUMS SECTION */
+  .albums-section {
+    background: #FFFBF4;
+    color: #000000; /* Отступ от блока стран */
+    position: relative;
+    z-index: 5;
+    width: 100%; /* Добавьте это */
+    padding: 50px 20px; /* Добавьте отступы по бокам */
+    box-sizing: border-box; 
+    margin-bottom: 150px;
+  }
+
+  .albums-grid {
+    position: relative;
+    max-width: 1400px;
+    height: 1300px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .album-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .album-cover {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    background: #ccc;
+    overflow: hidden;
+  }
+  .bod {
+    height: 500px;
+    font-weight: 500px;
+    border: 5px solid #000;
+    padding: 50px;
+  }
+  .bod1 {
+    height: 500px;
+    font-weight: 500px;
+    border: 5px solid #000;
+    padding: 20px;
+  }
+
+  .album-cover-inner {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Позиции для каждого альбома */
+  .card-1  { top: 0px;    left: 0;     width: 500px; height: 500px; }
+  .card-2  { top: 0px;    left: 520px; width: 230px; height: 230px; }
+  .card-3  { top: 270px;  right: 260px;     width: 230px; height: 230px; }
+  .card-4  { top: 0px;  right: 0px; width: 230px; height: 230px; }
+  .card-5  { top: 540px;  left: 0; width: 230px; height: 230px; }
+  .card-6  { top: 810px;  left: 250px; width: 230px; height: 230px; }
+  .card-7  { top: 540px; left: 520px; width: 500px; height: 500px; }
+  .card-8  { top: 540px; right: 0px; width: 230px; height: 230px; }
+  .card-9  { top: 1080px; left: 520px;     width: 230px; height: 230px; }
+  .card-10 { top: 1080px; right: 0px; width: 230px; height: 230px; }
+
+  /* ARTISTFAV SECTION */
+  .artistfav {
+    width: 100%;
+    margin-bottom: 150px;
+  }
+
+  .allder {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1400px;
+  }
+
+  .item2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 230px;
+    margin-bottom: 30px;
+  }
+
+  .square {
+    width: 230px;
+    height: 230px;
+    border: 5px solid #000000;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Внутренний блок для изображения с отступами */
+  .square .inner-image {
+    width: calc(100% - 40px); /* 20px слева + 20px справа = 40px */
+    height: calc(100% - 40px); /* 20px сверху + 20px снизу = 40px */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: inherit; /* Наследует transition от родителя */
+  }
+
+  /* Устанавливаем изображения для каждого квадрата */
+  .square-1 .inner-image { background-image: url('../images/sombr.webp'); }
+  .square-2 .inner-image { background-image: url('../images/radiohead2.webp'); }
+  .square-3 .inner-image { background-image: url('../images/albombeat1.webp'); }
+  .square-4 .inner-image { background-image: url('../images/bowie2.webp'); }
+  .square-5 .inner-image { background-image: url('../images/tvgirl.webp'); }
+
+  /* Изменяем изображение при наведении */
+  .square-1:hover .inner-image { background-image: url('../images/sombr1.webp'); }
+  .square-2:hover .inner-image { background-image: url('../images/radiohead1.webp'); }
+  .square-3:hover .inner-image { background-image: url('../images/beatles2.webp'); }
+  .square-4:hover .inner-image { background-image: url('../images/bowie1.webp'); }
+  .square-5:hover .inner-image { background-image: url('../images/tvgirl1.webp'); }
+
+  .orange { color: #ff0000; }
+
+  /* Эффект при наведении - превращение в круг */
+  .square:hover {
+    border-radius: 50%;
+    border-color: #00F5FF;
+  }
+
+  /* Внутреннее изображение тоже становится круглым при наведении */
+  .square:hover .inner-image {
+    border-radius: 50%;
+  }
+  .no-underline-card {
+    text-decoration: none !important;
+    color: inherit;
+    }
+
+  .subtitle {
+    font-family: 'Krona One', sans-serif;
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    transition: all 0.3s ease;
+    padding: 0 10px;
+  }
+
+  .square:hover + .subtitle {
+    color: #00F5FF;
+  }
+
+  /* Добавьте fallback фон для отладки */
+  .square .inner-image {
+    background-color: #f0f0f0; /* Временный цвет, если изображение не загрузится */
+  }
+  .item2:has(.artist-link:hover) .subtitle {
+  color: #00F5FF !important;
+  } 
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="no-underline-card"><div class="home-btn">HOME</div></a>
+
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input type="text" placeholder="Find a musician">
+      </div>
+      <button class="search-go"><i>GO —</i></button>
+    </div>
+
+    <div class="top-right">
+      <div class="info-circle" id="infoToggle"></div>
+      <a href="../menu/menu.html" class="no-underline-card"><div class="menu-btn">MENU</div></a>
+    </div>
+  </div>
+
+  <div class="site-info" id="siteInfo">
+    This site is a demo music library interface with artists, tracks and albums.
+  </div>
+
+  <!-- ARTIST SECTION -->
+  <section class="artist-section">
+    <div class="artist-left">
+      <div class="artist-header">
+        <div class="artist-label">Artist</div>
+        <h1 class="artist-name">Kate Bush</h1>
+        <div class="tags">art-pop / baroque-pop / alt-rock</div>
+      </div>
+
+      <div class="artist-bio">
+        <p>Kate Bush is a unique and distinctive phenomenon in the world of music, whose work is difficult to fit into a single genre. She is often called the "queen of art-pop," and this title reflects the essence of her art — she uses piercing melodies, complex arrangements, and deep, almost literary lyrics with equal virtuosity.</p>
+        <p>Her journey began unusually early. She started composing music at the age of 11, and at the age of 16, her demos came to the legendary Pink Floyd guitarist David Gilmour. He was so impressed that he helped pay for the studio sessions and introduced her to the EM Hall on 19th May, at the age of 19, the world heard the single "Wuthering Heights". This song became a sensation: not only because of Kate's incredible, almost operatic vocals and complex musical structure, but also because it was arguably the first ever British No. 1 song written and sung by a female author.</p>
+        <span class="read-more" id="readMoreBtn">Read more</span>
+        <div class="artist-extra" id="artistExtra">
+          <p>Kate embodied the image of the heroine of Bronze Song, Catherine Earnshaw, in her very first video, creating a standard of her style — dance as a form of storytelling, emotional gestures and a mystical atmosphere.</p>
+          <p>In 1973, one of these cassettes fell into the hands of David Gilmour of Pink Floyd, who found the young singer's work quite interesting and offered her his help in making a better recording. First, he provided Katie with a semi-professional tape recorder and microphones, using which she re-recorded some of her songs, and then invited her to his home studio, where they recorded about a dozen more tracks in a day (Gilmour himself accompanied on guitar and invited two musicians from the band Unicorn to perform bass and drums). Some of these recordings were planned to be released on the Kate Bush — The Early Years CD in 1986, but the entire trial run was destroyed at the insistence of Kate Bush herself, who felt that this material did not deserve to be published.</p>
+          <p>Finally, in 1975, the same David Gilmour arranged for Katie to record in a professional studio, paying for the services of musicians, an arranger and a sound engineer. In total, three tracks were recorded.: The Man With The Child In His Eyes, The Saxophone Song and Maybe (the first two were later included on the album The Kick Inside). The management of EMI liked this demo recording and Katie was offered a contract, which was signed in 1976. Apparently, EMI at that time believed that it was too early for Bush to start a professional music career, but they offered her favorable enough conditions so that the promising performer would not be intercepted by competitors.</p>
+        </div>
+      </div>
+      
+      <div class="artist-meta-container">
+        <div class="artist-meta">
+          <div class="meta-item">
+            <div class="meta-label"><i>Year of birth</i></div>
+            <div class="meta-value">July 30, 1958 (age 67)</div>
+          </div>
+          
+          <div class="meta-item">
+            <div class="meta-label"><i>Place of birth</i></div>
+            <div class="meta-value">Welling, Bexley, London,<br>England, United Kingdom</div>
+          </div>
+          
+          <div class="meta-item">
+            <div class="meta-label"><i>Popular album</i></div>
+            <div class="albums-mini">
+              <div class="album-mini" style="background-image: url('../images/running.webp');"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Пустой блок для выравнивания -->
+        <div style="flex: 1;"></div>
+      </div>
+    </div>
+
+    <div class="artist-right">
+      <div class="artist-photo-large" style="background-image:url('../images/kateh.webp');"></div>
+    </div>
+  </section>
+
+  <!-- PLAYER BAR -->
+  <div class="player-bar">
+    <div class="player-left">
+      <div class="player-cover" id="playerCover" style="background-image:url('albums/hounds_of_love.jpg');"></div>
+
+      <div class="player-track">
+        <div class="player-track-title" id="currentSongTitle">Running Up That Hill (A Deal With God)</div>
+        <div class="player-track-artist" id="currentSongArtist">Kate Bush</div>
+
+        <div class="player-progress-row">
+          <span class="player-time" id="currentTime">0:00</span>
+          <input type="range" id="seekBar" class="player-range" min="0" max="100" value="0">
+          <span class="player-time" id="duration">5:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="player-right">
+      <button class="player-btn prev" id="prevBtn">&#9664;</button>
+      <button class="player-btn play" id="playBtn">&#9658;</button>
+      <button class="player-btn next" id="nextBtn">&#9654;</button>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+  </div>
+
+  <!-- SONGS SECTION -->
+  <section class="songs-section">
+    <h2 class="section-title">Popular songs</h2>
+    
+    <div class="songs-grid" id="songsGrid">
+      <!-- Левая колонка -->
+      <div class="songs-column">
+        <div class="song-item" data-index="0" data-src="../songs/Kate_Bush_-_Running_Up_That_Hill_A_Deal_With_God_48002274.mp3" data-title="Running Up That Hill (A Deal With God)">
+          <div class="song-info">
+            <div class="song-number">1</div>
+            <div class="song-cover-small" style="background-image: url('../images/running.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Running Up That Hill (A Deal With God)</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        
+        <div class="song-item" data-index="1" data-src="../songs/Kate_Bush_-_Get_Out_of_My_House_62526156.mp3" data-title="Get Out Of My House">
+          <div class="song-info">
+            <div class="song-number">2</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate9.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Get Out Of My House</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        
+        <div class="song-item" data-index="2" data-src="../songs/Kate_Bush_-_Babooshka_60240823.mp3" data-title="Babooshka">
+          <div class="song-info">
+            <div class="song-number">3</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate7.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Babooshka</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        
+        <div class="song-item" data-index="3" data-src="../songs/Kate_Bush_-_Jig_Of_Life_48052004.mp3" data-title="Jig Of Life">
+          <div class="song-info">
+            <div class="song-number">4</div>
+            <div class="song-cover-small" style="background-image: url('../images/running.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Jig Of Life</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        <div class="song-item" data-index="4" data-src="../songs/Kate_Bush_-_Love_And_Anger_68331678.mp3" data-title="Jig Of Life">
+          <div class="song-info">
+            <div class="song-number">5</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate8.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Love And Anger</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        <div class="song-item" data-index="5" data-src="../songs/Kate_Bush_-_Oh_England_My_Lionheart_65793488.mp3" data-title="Jig Of Life">
+          <div class="song-info">
+            <div class="song-number">6</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate6.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Oh England My Lionheart</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+      </div>
+      
+      <!-- Правая колонка -->
+      <div class="songs-column">
+        <div class="song-item" data-index="6" data-src="../songs/Kate_Bush_-_Hello_Earth_48052005.mp3" data-title="Hello Earth">
+          <div class="song-info">
+            <div class="song-number">7</div>
+            <div class="song-cover-small" style="background-image: url('../images/running.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Hello Earth</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        
+        <div class="song-item" data-index="7" data-src="../songs/Kate_Bush_-_The_Morning_Fog_48052007.mp3" data-title="The Fog">
+          <div class="song-info">
+            <div class="song-number">8</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate8.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">The Fog</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        
+        <div class="song-item" data-index="8" data-src="../songs/Kate_Bush_-_Deeper_Understanding_70215339.mp3" data-title="Deeper Understanding">
+          <div class="song-info">
+            <div class="song-number">9</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate8.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Deeper Understanding</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        <div class="song-item" data-index="9" data-src="../songs/Kate_Bush_-_Reaching_Out_63507793.mp3" data-title="Deeper Understanding">
+          <div class="song-info">
+            <div class="song-number">10</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate8.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Reaching Out</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        <div class="song-item" data-index="10" data-src="../songs/Kate_Bush_-_Watching_You_Without_Me_48052001.mp3" data-title="Deeper Understanding">
+          <div class="song-info">
+            <div class="song-number">11</div>
+            <div class="song-cover-small" style="background-image: url('../images/running.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Watching You Without Me</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+        <div class="song-item" data-index="11" data-src="../songs/Kate_Bush_-_Army_Dreamers_79440612.mp3" data-title="Army Dreamers">
+          <div class="song-info">
+            <div class="song-number">12</div>
+            <div class="song-cover-small" style="background-image: url('../images/albomkate7.webp');"></div>
+            <div class="song-details">
+              <div class="song-title">Army Dreamers</div>
+              <div class="song-artist">Kate Bush</div>
+            </div>
+          </div>
+          <div class="song-duration">5:00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALBUMS SECTION -->
+  <section class="albums-section">
+    <h2 class="section-title">Albums</h2>
+    
+    <div class="albums-grid">
+      <div class="album-card card-1 bod">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/running.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-2">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate7.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-3">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate4.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-4 bod1">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate2.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-5">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate9.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-6">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate3.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-7 bod">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate8.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-8">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate6.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-9">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate1.webp');"></div>
+        </div>
+      </div>
+      <div class="album-card card-10">
+        <div class="album-cover">
+          <div class="album-cover-inner" style="background-image:url('../images/albomkate5.webp');"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Similar artists section -->
+  <div class="artistfav">
+      <h1 class="section-title">Similar <span class="orange">artist</span></h1>
+      <div class="allder">
+          <div class="item2">
+              <a href="../artist/sombr.html" class="artist-link">
+                  <div class="square square-1">
+                      <div class="inner-image"></div>
+                  </div>
+              </a>
+              <div class="subtitle">Sombr</div>
+          </div>
+          <div class="item2">
+              <a href="../artist/radiohead.html" class="artist-link">
+                  <div class="square square-2">
+                      <div class="inner-image"></div>
+                  </div>
+              </a>
+              <div class="subtitle">Radiohead</div>
+          </div>
+          <div class="item2">
+              <a href="../artist/the_beatles.html" class="artist-link">
+                  <div class="square square-3">
+                      <div class="inner-image"></div>
+                  </div>
+              </a>
+              <div class="subtitle">The Beatles</div>
+          </div>
+          <div class="item2">
+              <a href="../artist/dawid_bowie.html" class="artist-link">
+                  <div class="square square-4">
+                      <div class="inner-image"></div>
+                  </div>
+              </a>
+              <div class="subtitle">David Bowie</div>
+          </div>
+          <div class="item2">
+              <a href="../artist/tv_girl.html" class="artist-link">
+                  <div class="square square-5">
+                      <div class="inner-image"></div>
+                  </div>
+              </a>
+              <div class="subtitle">TV Girl</div>
+          </div>
+      </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+  // Показ/скрытие информации о сайте
+  const infoToggle = document.getElementById('infoToggle');
+  const siteInfo = document.getElementById('siteInfo');
+
+  infoToggle.addEventListener('click', () => {
+    siteInfo.classList.toggle('visible');
+  });
+
+  // Read more функционал
+  const readMoreBtn = document.getElementById('readMoreBtn');
+  const artistExtra = document.getElementById('artistExtra');
+
+  readMoreBtn.addEventListener('click', () => {
+    artistExtra.classList.toggle('visible');
+    readMoreBtn.textContent = artistExtra.classList.contains('visible') ? 'Read less' : 'Read more';
+  });
+
+  // Аудиоплеер
+  const audio = document.getElementById('audioPlayer');
+  const currentSongTitle = document.getElementById('currentSongTitle');
+  const currentSongArtist = document.getElementById('currentSongArtist');
+  const songsGrid = document.getElementById('songsGrid');
+  const seekBar = document.getElementById('seekBar');
+  const currentTimeLabel = document.getElementById('currentTime');
+  const durationLabel = document.getElementById('duration');
+
+  const playBtn = document.getElementById('playBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let currentIndex = -1;
+  let songs = Array.from(document.querySelectorAll('.song-item'));
+
+  // Устанавливаем длительность по умолчанию
+  durationLabel.textContent = '5:00';
+
+  function loadSong(index) {
+    const item = songs[index];
+    if (!item) return;
+
+    const src = item.dataset.src;
+    const title = item.dataset.title;
+
+    currentIndex = index;
+    audio.src = src;
+    currentSongTitle.textContent = title;
+    currentSongArtist.textContent = 'Kate Bush';
+    
+    // Обновляем обложку в плеере
+    const playerCover = document.getElementById('playerCover');
+    if (playerCover) {
+      const coverUrl = item.querySelector('.song-cover-small')?.style.backgroundImage || 'url(albums/hounds_of_love.jpg)';
+      playerCover.style.backgroundImage = coverUrl;
+    }
+    
+    // Снимаем выделение со всех строк
+    songs.forEach(row => {
+      row.style.backgroundColor = '';
+    });
+    
+    // Выделяем текущий трек
+    item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
+    
+    audio.play();
+    playBtn.textContent = '❚❚';
+  }
+
+  songsGrid.addEventListener('click', (e) => {
+    const item = e.target.closest('.song-item');
+    if (!item) return;
+    const index = parseInt(item.dataset.index, 10);
+    loadSong(index);
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (!audio.src && songs[0]) {
+      loadSong(0);
+      return;
+    }
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = '❚❚';
+    } else {
+      audio.pause();
+      playBtn.textContent = '▶';
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex <= 0) {
+      currentIndex = songs.length - 1;
+    } else {
+      currentIndex -= 1;
+    }
+    loadSong(currentIndex);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex >= songs.length - 1) {
+      currentIndex = 0;
+    } else {
+      currentIndex += 1;
+    }
+    loadSong(currentIndex);
+  });
+
+  function formatTime(sec) {
+    sec = Math.floor(sec);
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+
+  audio.addEventListener('loadedmetadata', () => {
+    durationLabel.textContent = formatTime(audio.duration || 300);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (!isNaN(audio.duration) && audio.duration > 0) {
+      const value = (audio.currentTime / audio.duration) * 100;
+      seekBar.value = value;
+      currentTimeLabel.textContent = formatTime(audio.currentTime);
+    } else {
+      // Если аудио не загружено, имитируем прогресс
+      const fakeTime = (audio.currentTime || 0) + 0.1;
+      if (fakeTime < 300) { // 5 минут = 300 секунд
+        currentTimeLabel.textContent = formatTime(fakeTime);
+        seekBar.value = (fakeTime / 300) * 100;
+      }
+    }
+  });
+
+  seekBar.addEventListener('input', () => {
+    if (!isNaN(audio.duration) && audio.duration > 0) {
+      const time = (seekBar.value / 100) * audio.duration;
+      audio.currentTime = time;
+    } else {
+      // Для демо: устанавливаем время на основе 5-минутной длины
+      const time = (seekBar.value / 100) * 300;
+      audio.currentTime = time;
+      currentTimeLabel.textContent = formatTime(time);
+    }
+  });
+
+  audio.addEventListener('pause', () => {
+    playBtn.textContent = '▶';
+  });
+
+  audio.addEventListener('play', () => {
+    playBtn.textContent = '❚❚';
+  });
+
+  // Загружаем первый трек по умолчанию
+  window.addEventListener('DOMContentLoaded', () => {
+    if (songs[0]) {
+      // Не автовоспроизводим, но готовим первый трек
+      const firstSong = songs[0];
+      currentSongTitle.textContent = firstSong.dataset.title;
+      currentSongArtist.textContent = 'Kate Bush';
+    }
+  });
+</script>
+</body>
+</html>
