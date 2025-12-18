@@ -1,0 +1,335 @@
+/* ===== АДАПТИВНАЯ ВЕРСИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (до 768px) ===== */
+@media (max-width: 768px) {
+    /* Общие настройки */
+    * {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    
+    body {
+        min-width: 100%;
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    
+    /* Top bar - навигация */
+    .top-bar {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 15px 20px 0 20px !important;
+        margin-bottom: 20px !important;
+        gap: 0 !important; /* Убираем фиксированный отступ между кнопками */
+        position: relative !important;
+    }
+    
+    .home-btn {
+        font-size: 18px !important;
+        white-space: nowrap !important;
+        order: 1 !important; /* HOME слева */
+        margin: 0 !important;
+        padding: 10px 15px !important;
+        text-align: left !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .menu-btn {
+        font-size: 18px !important;
+        white-space: nowrap !important;
+        order: 3 !important; /* MENU справа */
+        margin: 0 !important;
+        padding: 10px 15px !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Иконка информации */
+    .info-circle {
+        order: 4 !important;
+        margin-left: 10px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .site-info {
+        z-index: 1000 !important;
+        position: absolute !important;
+        top: 50px !important;
+        right: 20px !important;
+    }
+    
+    /* СЕКЦИЯ ИСТОРИИ */
+    .history-section {
+        padding: 0 15px !important;
+    }
+    
+    .header {
+        font-size: 32px !important;
+        margin-top: 30px !important;
+        margin-bottom: 30px !important;
+        padding: 0 10px;
+        line-height: 1.2;
+    }
+    
+    .header h1 {
+        font-size: 32px !important;
+        margin-bottom: 30px !important;
+    }
+    
+    /* Контейнеры и расположение */
+    .container {
+        padding: 0;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    /* Все абсолютные позиционирования убираем для мобильных */
+    .image-circle, .image-circle2 {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        margin: 20px auto !important;
+        width: 180px !important;
+        height: 180px !important;
+    }
+    
+    /* Заголовки и подзаголовки */
+    .dif {
+        margin: 30px 0 !important;
+        text-align: center;
+        width: 100%;
+        margin-left: 0 !important;
+    }
+    
+    h2 {
+        font-size: 22px !important;
+        margin-top: 30px !important;
+        margin-bottom: 15px !important;
+        line-height: 1.2;
+    }
+    
+    /* Все контентные блоки переводим в колонку */
+    .content1, .content2, .content3, .content4, .content5, .content6 {
+        margin-left: 0 !important;
+        max-width: 100% !important;
+        margin-top: 20px !important;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    /* Особые отступы для некоторых блоков */
+    .content5 {
+        margin-top: 20px !important;
+    }
+    
+    .content6 {
+        margin-top: 20px !important;
+    }
+    
+    /* Текст */
+    .text {
+        width: 100%;
+    }
+    
+    .text p {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        text-align: justify;
+        color: #000000;
+    }
+    
+    /* Изображения - Middle Ages */
+    .middle-ages-image {
+        margin: 20px auto !important;
+        width: 100% !important;
+        max-width: 300px;
+        height: 350px !important;
+        display: block;
+    }
+    
+    .middle-ages-image5 {
+        margin: 20px auto !important;
+        width: 100% !important;
+        max-width: 100%;
+        height: auto !important;
+        min-height: 150px;
+    }
+    
+    .middle-ages-image img, .middle-ages-image5 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Подвал (футер) */
+    .section.normal {
+        padding: 40px 25px !important;
+        background: #FFFBF4;
+    }
+    
+    .header4 {
+        font-size: 24px !important;
+        line-height: 1.2;
+        margin-bottom: 30px;
+    }
+    
+    .subscribe-meta {
+        flex-direction: column;
+        gap: 25px !important;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .subscribe-meta-left, .subscribe-meta-right {
+        white-space: normal;
+        width: 100%;
+    }
+    
+    .subscribe-form-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 25px;
+    }
+    
+    .subscribe-input {
+        width: 100% !important;
+        height: 60px !important;
+        padding: 15px 25px !important;
+        font-size: 16px !important;
+        border-radius: 30px !important;
+        border-width: 3px;
+    }
+    
+    .subscribe-button {
+        width: 100% !important;
+        height: 60px !important;
+        padding: 15px !important;
+        font-size: 18px !important;
+    }
+    
+    /* Цвета для акцентов */
+    .orange {
+        color: #ff0000;
+    }
+    
+    /* Адаптация для касаний */
+    button, .subscribe-button, .home-btn, .menu-btn, .info-circle {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    button, .subscribe-button {
+        min-height: 44px;
+    }
+    
+    /* Оптимизация скролла */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Фикс для якорных ссылок */
+    [id] {
+        scroll-margin-top: 60px;
+    }
+}
+
+/* Для очень маленьких экранов (до 480px) */
+@media (max-width: 480px) {
+    .top-bar {
+        padding: 15px 10px 0 10px;
+    }
+    
+    .home-btn, .menu-btn {
+        font-size: 16px;
+    }
+    
+    .header, .header h1 {
+        font-size: 28px !important;
+    }
+    
+    .header4 {
+        font-size: 24px !important;
+    }
+    
+    .image-circle, .image-circle2 {
+        width: 150px !important;
+        height: 150px !important;
+    }
+    
+    .middle-ages-image {
+        height: 280px !important;
+    }
+    
+    .text p {
+        font-size: 14px;
+    }
+    
+    h2 {
+        font-size: 20px !important;
+    }
+    
+    .subscribe-input {
+        height: 50px !important;
+        font-size: 14px !important;
+        padding: 12px 15px !important;
+    }
+    
+    .subscribe-input::placeholder {
+        font-size: 14px;
+    }
+    
+    .subscribe-button {
+        height: 50px !important;
+        font-size: 16px !important;
+        padding: 12px !important;
+    }
+}
+
+/* Горизонтальная ориентация на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .history-section {
+        padding: 0 20px !important;
+    }
+    
+    .top-bar {
+        padding: 15px 20px 0 20px;
+    }
+    
+    .header {
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .image-circle, .image-circle2 {
+        width: 120px !important;
+        height: 120px !important;
+        margin: 15px auto !important;
+    }
+    
+    .middle-ages-image {
+        height: 250px !important;
+        max-width: 200px;
+    }
+    
+    .content1, .content2, .content3, .content4, .content5, .content6 {
+        margin-top: 15px !important;
+    }
+    
+    .text p {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Для Retina-дисплеев */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Улучшаем качество изображений на Retina */
+    .image-circle img, .image-circle2 img, 
+    .middle-ages-image img, .middle-ages-image5 img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Museum</title>
+    <link href="china_style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krona+One&display=swap" rel="stylesheet">
+    <link href="c.css" rel="stylesheet">
+    <style>
+        /* Дополнительные стили для исправления проблем */
+        .top-bar {
+            display: flex;
+            justify-content: space-between; /* Кнопки по разным краям */
+            align-items: center;
+            padding: 40px 101px 0 101px; /* Отступы как у основного контента */
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .home-btn, .menu-btn {
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .home-btn:hover, .menu-btn:hover {
+            opacity: 0.8;
+        }
+        
+        /* Стили для ссылок в футере */
+        .subscribe-meta-right a {
+            color: #111111;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .subscribe-meta-right a:hover {
+            color: #00F5FF;
+            text-decoration: underline;
+        }
+        /* Адаптация изображения middle-ages-image5 */
+        .middle-ages-image5 {
+            width: 500px;
+            height: 210px;
+            margin-left: 101px;
+            margin-bottom: 10px;
+            overflow: hidden; /* Предотвращаем выход за границы */
+        }
+        .middle-ages-image5 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- СЕКЦИЯ ИСТОРИИ МУЗЫКИ -->
+    <div class="history-section" id="history">
+        <!-- ГЛАВНЫЙ ЭКРАН -->
+        <div class="top-bar">
+            <div class="home-btn" onclick="window.location.href='../index.html'">HOME</div> <!-- Замените index.html на ваш главный файл -->
+            
+            <div class="top-right">
+                <div class="info-circle" id="infoToggle" onclick="toggleSiteInfo()"></div>
+                <div class="menu-btn" onclick="window.location.href='../menu/menu.html'">MENU</div> <!-- Ведет к футеру -->
+            </div>
+        </div>
+
+        <div class="site-info" id="siteInfo">
+            This site is a demo music library interface with artists, tracks and albums.
+        </div>
+        
+        <!-- Заголовок -->
+        <div class="header">
+            <h1><span class="orange">Chinese</span><br>traditional music</h1>
+        </div>
+        
+        <!-- Основной контент -->
+        <div class="container">
+            <!-- Круг с изображением -->
+            <div class="image-circle">
+                <img src="../images/chinac1.webp" alt="Древние музыкальные инструменты">
+            </div>
+            
+            <!-- Текстовый контент -->
+            <div class="content1">
+                <div class="text">
+                    <p>This is an ancient cultural heritage that has been preserved and developed for thousands of years. It is an integral part of the national identity, reflecting the rich history, philosophy, values and spiritual traditions of the Chinese people.</p>
+                    <p>Over the centuries, it has merged with various aspects of life, from religious rituals and ceremonies to folk festivals and daily rituals, creating a unique and multifaceted sound.</p>
+                    <p>An important element of this music are traditional instruments such as guqin, pipa, erhu, guzheng, sheng and many others, each of which has its own unique sound and history. These instruments create a rich sound canvas on which various genres and styles are performed, from national folk songs to complex stage productions.</p>
+                </div>
+            </div>
+            
+            <div class="middle-ages-container">
+                <div class="dif">
+                    <h2>A story of survival<br>and rebirth</h2>
+                </div>
+                
+                <div class="text">
+                    <p class="content2">The history of Chinese music goes back thousands of years. In ancient times, back in the Shang and Zhou eras, music was closely associated with rituals and religious rituals, accompanying sacrifices and solemn ceremonies. The sounds of bells, drums, and bamboo flutes resounded in temples and palaces, paying homage to the gods and ancestors.</p>
+                </div>
+                
+                <div class="text">
+                    <p class="content3">In the Qin era (221-206 BC), music became more secular, with orchestras and ensembles being created at the imperial court to perform complex works for the emperors and the aristocracy. In the Han era (206 BC — 220 AD), Chinese music absorbs the influence of other cultures, expanding its genres and instruments, making music more refined and diverse.</p>
+                </div>
+                
+                <div class="middle-ages-image">
+                    <img src="../images/chinac2.webp" alt="Medieval music scene">
+                </div>
+                
+                <div class="content6">
+                    <div class="text">
+                        <p>The golden age of Chinese music began during the Tang Dynasty (618-907), when poetry, performing arts, and musical styles flourished. During this period, magnificent works inspired by nature, love and philosophy were created. In the Song era (960-1279), music became more accessible to the general public: folk songs, theatrical performances, and music competitions gained popularity.</p>
+                        <p>After the Mongol conquest (1279-1368), Chinese music was influenced by nomadic peoples, which led to the emergence of new genres and instruments, and music became more dynamic and expressive. During the Ming era (1368-1644), traditional culture was revived, and opera and instrumental music reached new heights.</p>  
+                        <p>During the Manchu Qing Dynasty (1644-1912), Chinese music incorporated elements of Western classics and opera, creating new genres and forms of performance. Today, despite the rapid development of technology and the influence of world culture, Chinese traditional music retains its identity and continues to inspire new generations of musicians and listeners. Large-scale festivals are held in modern China, new ensembles and orchestras are being created, and innovative methods of performance and popularization are being actively introduced. Government programs, private schools, and online platforms help ensure that this unique culture does not disappear and continues to live, resonating with people around the world.</p>
+                    </div>
+                </div>          
+            </div>
+            
+            <div class="dif">
+                <h2>The basic structure<br>of sound</h2>
+            </div>
+            
+            <div class="content1">
+                <div class="text">
+                    <p>The genres of Chinese traditional music are a real kaleidoscope reflecting the richness and diversity of the national culture. Among them are folk songs that tell about love, work, joys and sorrows of ordinary people, uniting them into a single cultural space. Operas are a theatrical art that combines singing, acting, acrobatics and stage effects, telling myths, legends and historical events.</p>
+                    <p>Court music is a symbol of the grandeur and grace of the imperial court, creating an atmosphere of solemnity and peace. Ritual music is designed to connect the human world with the spiritual space, evoking reverence and a prayerful atmosphere. Theatrical music includes a variety of genres, from folk songs to complex orchestral compositions that create a vibrant stage atmosphere and emotional tension.</p>  
+                </div>
+            </div>
+            
+            <div class="image-circle2">
+                <img src="../images/chinac3.webp" alt="Древние музыкальные инструменты">
+            </div>
+            
+            <div class="content4">
+                <div class="text">
+                    <p>Genres such as Yue Yuan, Xinyu, Pingchuan and quyi occupy a special place — each of them has its own special historical basis, style of performance and emotional coloring. Yue Yuan is a melancholic, moonlit melody that conveys the beauty of nature and inner feelings.</p>
+                    <p>Xinyu is the music of the heart, subtle and sincere, expressing unspoken emotions. Pingchuan is a folk genre known for its vivacity and cheerful rhythm, performed at festivals and weddings. Quyi are song arts related to oral folk art, telling fairy tales, legends and myths, saturated with meaning and symbolism.</p>
+                    <p>The modern development of Chinese music is supported by the state, which finances research, restoration and performance of traditional works. Educational programs are underway, schools and ensembles are being created, and popularization is taking place through media and festivals.</p>
+                    <p>Young people are attracted to traditional music through the integration of its elements into modern genres, films, TV series and popular projects. This process contributes to the preservation and development of cultural heritage, making it relevant and modern.</p>
+                </div>
+            </div>
+            
+            <div class="dif">
+                <h2>Harmony for the world</h2>
+            </div>
+            
+            <div class="middle-ages-image5">
+                <img src="../images/chinac4.webp" alt="Прямоугольник">
+            </div>
+            
+            <div class="content5">
+                <div class="text">
+                    <p>Chinese traditional music plays an important role in intercultural dialogue and strengthening international relations. It is a universal language capable of conveying feelings and ideas without words, opening a window into the rich culture and traditions of China.</p>
+                    <p>Music unites people, blurs boundaries and promotes mutual understanding. In a modern world full of conflicts and disagreements, it can become a bridge to peace, reminding us that we are all part of one human family.</p>
+                    <p>Thus, Chinese traditional music is not only an art, it is a living heritage that continues to resound in the hearts of people, uniting generations and cultures, filling the world with harmony and beauty. Its preservation and development is an important task for the future, allowing us to preserve the unique voice of ancient China and pass it on to new generations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section normal" id="footer"> <!-- Добавлен ID для навигации -->
+        <div class="page-wrapper">
+            <div class="subscribe-block">
+                <div class="header4">
+                    <span class="orange">Subscribe</span> to our news and<br>
+                    articles — together we will<br>
+                    <span class="pinkish">open new horizons</span> of music!
+                </div>
+                
+                <div class="subscribe-meta">
+                    <div class="subscribe-meta-left">
+                        Content<br>
+                        Editor-in-chief: Jamilya Alekseevna Spiridonova<br><br>
+                        Technical support<br>
+                        info@help.media<br><br>
+                        Rules for the use of materials<br>
+                        User agreement<br>
+                        Cookie Policy
+                    </div>
+                    
+                    <div class="subscribe-meta-right">
+                        <!-- Ссылки на другие страницы/разделы -->
+                        <a href="../index.html#history">history</a>
+                        <a href="../index.html#country">country</a>
+                        <a href="../index.html#artist">artists</a>
+                        <a href="../index.html#artifacts">instruments</a>
+                        <a href="../index.html#articals">articles</a>
+                    </div>
+                </div>
+                
+                <div class="subscribe-form-wrapper">
+                    <form class="subscribe-form" id="subscribeForm">
+                        <input
+                            type="email"
+                            class="subscribe-input"
+                            id="emailInput"
+                            placeholder="Your email address"
+                            required
+                        >
+                    </form>
+                    <button type="submit" form="subscribeForm" class="subscribe-button">
+                        <i>GO —</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для показа/скрытия информации о сайте
+        function toggleSiteInfo() {
+            const siteInfo = document.getElementById('siteInfo');
+            siteInfo.classList.toggle('visible');
+        }
+        
+        // Закрытие информационного блока при клике вне его
+        document.addEventListener('click', function(event) {
+            const siteInfo = document.getElementById('siteInfo');
+            const infoToggle = document.getElementById('infoToggle');
+            
+            if (!siteInfo.contains(event.target) && !infoToggle.contains(event.target)) {
+                siteInfo.classList.remove('visible');
+            }
+        });
+        
+        // Обработка формы подписки
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing!');
+                document.getElementById('emailInput').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>
