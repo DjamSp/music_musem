@@ -1002,18 +1002,24 @@
   const infoToggle = document.getElementById('infoToggle');
   const siteInfo = document.getElementById('siteInfo');
 
-  infoToggle.addEventListener('click', () => {
-    siteInfo.classList.toggle('visible');
-  });
+  if (infoToggle) {
+    infoToggle.addEventListener('click', () => {
+      if (siteInfo) {
+        siteInfo.classList.toggle('visible');
+      }
+    });
+  }
 
   // Read more функционал
   const readMoreBtn = document.getElementById('readMoreBtn');
   const artistExtra = document.getElementById('artistExtra');
 
-  readMoreBtn.addEventListener('click', () => {
-    artistExtra.classList.toggle('visible');
-    readMoreBtn.textContent = artistExtra.classList.contains('visible') ? 'Read less' : 'Read more';
-  });
+  if (readMoreBtn && artistExtra) {
+    readMoreBtn.addEventListener('click', () => {
+      artistExtra.classList.toggle('visible');
+      readMoreBtn.textContent = artistExtra.classList.contains('visible') ? 'Read less' : 'Read more';
+    });
+  }
 
   // Аудиоплеер
   const audio = document.getElementById('audioPlayer');
@@ -1029,81 +1035,170 @@
   const nextBtn = document.getElementById('nextBtn');
 
   let currentIndex = -1;
-  let songs = Array.from(document.querySelectorAll('.song-item'));
+  let songs = [];
+  let isPlaying = false;
 
-  // Устанавливаем длительность по умолчанию
-  durationLabel.textContent = '5:00';
+  // Инициализация при загрузке страницы
+  document.addEventListener('DOMContentLoaded', () => {
+    songs = Array.from(document.querySelectorAll('.song-item'));
+    
+    // Устанавливаем начальные значения
+    if (songs.length > 0) {
+      const firstSong = songs[0];
+      const firstTitle = firstSong.getAttribute('data-title') || firstSong.querySelector('.song-title').textContent;
+      currentSongTitle.textContent = firstTitle;
+      currentSongArtist.textContent = 'Kate Bush';
+      
+      // Устанавливаем правильную обложку для первой песни
+      const playerCover = document.getElementById('playerCover');
+      if (playerCover && firstSong.querySelector('.song-cover-small')) {
+        const coverStyle = firstSong.querySelector('.song-cover-small').style.backgroundImage;
+        if (coverStyle) {
+          playerCover.style.backgroundImage = coverStyle;
+        } else {
+          playerCover.style.backgroundImage = "url('../images/running.webp')";
+        }
+      }
+    }
+  });
 
   function loadSong(index) {
     const item = songs[index];
     if (!item) return;
 
     const src = item.dataset.src;
-    const title = item.dataset.title;
+    const title = item.dataset.title || item.querySelector('.song-title').textContent;
 
-    currentIndex = index;
-    audio.src = src;
-    currentSongTitle.textContent = title;
-    currentSongArtist.textContent = 'Kate Bush';
-    
-    // Обновляем обложку в плеере
-    const playerCover = document.getElementById('playerCover');
-    if (playerCover) {
-      const coverUrl = item.querySelector('.song-cover-small')?.style.backgroundImage || 'url(albums/hounds_of_love.jpg)';
-      playerCover.style.backgroundImage = coverUrl;
-    }
-    
-    // Снимаем выделение со всех строк
-    songs.forEach(row => {
-      row.style.backgroundColor = '';
-    });
-    
-    // Выделяем текущий трек
-    item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
-    
-    audio.play();
-    playBtn.textContent = '❚❚';
+    // Проверяем, существует ли файл
+    fetch(src, { method: 'HEAD' })
+      .then(response => {
+        if (response.ok) {
+          // Файл существует
+          currentIndex = index;
+          audio.src = src;
+          currentSongTitle.textContent = title;
+          currentSongArtist.textContent = 'Kate Bush';
+          
+          // Обновляем обложку в плеере
+          const playerCover = document.getElementById('playerCover');
+          if (playerCover) {
+            const coverUrl = item.querySelector('.song-cover-small')?.style.backgroundImage || "url('../images/running.webp')";
+            playerCover.style.backgroundImage = coverUrl;
+          }
+          
+          // Снимаем выделение со всех строк
+          songs.forEach(row => {
+            row.style.backgroundColor = '';
+          });
+          
+          // Выделяем текущий трек
+          item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
+          
+          // Воспроизводим
+          audio.play().then(() => {
+            isPlaying = true;
+            playBtn.textContent = '❚❚';
+          }).catch(error => {
+            console.log('Для воспроизведения требуется взаимодействие пользователя');
+            playBtn.textContent = '▶';
+          });
+        } else {
+          // Файл не найден
+          console.error('Аудиофайл не найден:', src);
+          alert('Аудиофайл не найден. Пожалуйста, проверьте путь к файлу.');
+          
+          // Используем демо-аудио
+          audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+          currentSongTitle.textContent = title;
+          currentSongArtist.textContent = 'Kate Bush';
+          
+          // Выделяем текущий трек
+          songs.forEach(row => {
+            row.style.backgroundColor = '';
+          });
+          item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
+        }
+      })
+      .catch(error => {
+        console.error('Ошибка загрузки аудио:', error);
+        // Используем демо-аудио при ошибке
+        audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+        currentSongTitle.textContent = title;
+        currentSongArtist.textContent = 'Kate Bush';
+        
+        // Выделяем текущий трек
+        songs.forEach(row => {
+          row.style.backgroundColor = '';
+        });
+        item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
+      });
   }
 
-  songsGrid.addEventListener('click', (e) => {
-    const item = e.target.closest('.song-item');
-    if (!item) return;
-    const index = parseInt(item.dataset.index, 10);
-    loadSong(index);
-  });
+  // Клик по песне
+  if (songsGrid) {
+    songsGrid.addEventListener('click', (e) => {
+      const item = e.target.closest('.song-item');
+      if (!item) return;
+      
+      const index = parseInt(item.dataset.index, 10);
+      if (index === currentIndex && isPlaying) {
+        // Если кликаем на текущую играющую песню - пауза
+        audio.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶';
+      } else {
+        // Иначе загружаем новую песню
+        loadSong(index);
+      }
+    });
+  }
 
-  playBtn.addEventListener('click', () => {
-    if (!audio.src && songs[0]) {
-      loadSong(0);
-      return;
-    }
-    if (audio.paused) {
-      audio.play();
-      playBtn.textContent = '❚❚';
-    } else {
-      audio.pause();
-      playBtn.textContent = '▶';
-    }
-  });
+  // Кнопка Play/Pause
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      if (currentIndex === -1 && songs.length > 0) {
+        // Если ничего не играет, загружаем первую песню
+        loadSong(0);
+      } else if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶';
+      } else {
+        audio.play().then(() => {
+          isPlaying = true;
+          playBtn.textContent = '❚❚';
+        }).catch(error => {
+          console.log('Для воспроизведения требуется взаимодействие пользователя');
+        });
+      }
+    });
+  }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex <= 0) {
-      currentIndex = songs.length - 1;
-    } else {
-      currentIndex -= 1;
-    }
-    loadSong(currentIndex);
-  });
+  // Предыдущая песня
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex <= 0) {
+        currentIndex = songs.length - 1;
+      } else {
+        currentIndex -= 1;
+      }
+      loadSong(currentIndex);
+    });
+  }
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex >= songs.length - 1) {
-      currentIndex = 0;
-    } else {
-      currentIndex += 1;
-    }
-    loadSong(currentIndex);
-  });
+  // Следующая песня
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex >= songs.length - 1) {
+        currentIndex = 0;
+      } else {
+        currentIndex += 1;
+      }
+      loadSong(currentIndex);
+    });
+  }
 
+  // Форматирование времени
   function formatTime(sec) {
     sec = Math.floor(sec);
     const m = Math.floor(sec / 60);
@@ -1111,55 +1206,70 @@
     return m + ':' + (s < 10 ? '0' + s : s);
   }
 
-  audio.addEventListener('loadedmetadata', () => {
-    durationLabel.textContent = formatTime(audio.duration || 300);
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    if (!isNaN(audio.duration) && audio.duration > 0) {
-      const value = (audio.currentTime / audio.duration) * 100;
-      seekBar.value = value;
-      currentTimeLabel.textContent = formatTime(audio.currentTime);
-    } else {
-      // Если аудио не загружено, имитируем прогресс
-      const fakeTime = (audio.currentTime || 0) + 0.1;
-      if (fakeTime < 300) { // 5 минут = 300 секунд
-        currentTimeLabel.textContent = formatTime(fakeTime);
-        seekBar.value = (fakeTime / 300) * 100;
+  // Обработчики событий аудио
+  if (audio) {
+    audio.addEventListener('loadedmetadata', () => {
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        durationLabel.textContent = formatTime(audio.duration);
       }
-    }
-  });
+    });
 
-  seekBar.addEventListener('input', () => {
-    if (!isNaN(audio.duration) && audio.duration > 0) {
-      const time = (seekBar.value / 100) * audio.duration;
-      audio.currentTime = time;
-    } else {
-      // Для демо: устанавливаем время на основе 5-минутной длины
-      const time = (seekBar.value / 100) * 300;
-      audio.currentTime = time;
-      currentTimeLabel.textContent = formatTime(time);
-    }
-  });
+    audio.addEventListener('timeupdate', () => {
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        const value = (audio.currentTime / audio.duration) * 100;
+        if (seekBar) seekBar.value = value;
+        if (currentTimeLabel) currentTimeLabel.textContent = formatTime(audio.currentTime);
+      }
+    });
 
-  audio.addEventListener('pause', () => {
-    playBtn.textContent = '▶';
-  });
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      if (playBtn) playBtn.textContent = '▶';
+    });
 
-  audio.addEventListener('play', () => {
-    playBtn.textContent = '❚❚';
-  });
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      if (playBtn) playBtn.textContent = '❚❚';
+    });
 
-  // Загружаем первый трек по умолчанию
-  window.addEventListener('DOMContentLoaded', () => {
-    if (songs[0]) {
-      // Не автовоспроизводим, но готовим первый трек
-      const firstSong = songs[0];
-      currentSongTitle.textContent = firstSong.dataset.title;
-      currentSongArtist.textContent = 'Kate Bush';
+    audio.addEventListener('ended', () => {
+      // Автопереход к следующей песне
+      if (currentIndex >= songs.length - 1) {
+        currentIndex = 0;
+      } else {
+        currentIndex += 1;
+      }
+      loadSong(currentIndex);
+    });
+  }
+
+  // Прогресс-бар
+  if (seekBar) {
+    seekBar.addEventListener('input', () => {
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        const time = (seekBar.value / 100) * audio.duration;
+        audio.currentTime = time;
+      }
+    });
+  }
+
+  // Горячие клавиши
+  document.addEventListener('keydown', (e) => {
+    switch(e.key) {
+      case ' ':
+        e.preventDefault();
+        if (playBtn) playBtn.click();
+        break;
+      case 'ArrowLeft':
+        if (prevBtn) prevBtn.click();
+        break;
+      case 'ArrowRight':
+        if (nextBtn) nextBtn.click();
+        break;
     }
   });
 </script>
 </body>
 
 </html>
+
