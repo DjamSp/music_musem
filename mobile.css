@@ -4,7 +4,7 @@
 @media (max-width: 768px) {
     /* Общие настройки */
     * {
-        max-width: 50vw;
+        max-width: 100vw;
         overflow-x: hidden;
     }
     
@@ -15,7 +15,7 @@
     
     /* ГЛАВНЫЙ ЭКРАН */
     .main-content {
-        height: 100vh;
+        height: 70vh;
         padding: 30px 20px !important;
         justify-content: center;
         align-items: center;
@@ -703,4 +703,5 @@
     }
 
 }
+
 
