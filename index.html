@@ -521,48 +521,51 @@
         </div>
     </div>
       
-    <div class="section normal">
+    <div class="section normal" id="footer"> <!-- Добавлен ID для навигации -->
         <div class="page-wrapper">
-          <div class="subscribe-block">
-            <div class="header4">
-              <span class="orange">Subscribe</span> to our news and<br>
-              articles — together we will<br>
-              <span class="pinkish">open new horizons</span> of music!
-            </div>
-            <div class="subscribe-meta">
-              <div class="subscribe-meta-left">
-                Сontent
-                Editor-in-chief: Jamilya Alekseevna Spiridonova
-
-                Technical support
-                info@help.media
+            <div class="subscribe-block">
+                <div class="header4">
+                    <span class="orange">Subscribe</span> to our news and<br>
+                    articles — together we will<br>
+                    <span class="pinkish">open new horizons</span> of music!
+                </div>
                 
-                Rules for the use of materials
-                User agreement
-                Cookie Policy
-              </div>
-              <div class="subscribe-meta-right">
-                <a href="#history">history</a>
-                <a href="#country">country</a>
-                <a href="#artist">artists</a>
-                <a href="#artifacts">instruments</a>
-                <a href="#articals">articles</a>
+                <div class="subscribe-meta">
+                    <div class="subscribe-meta-left">
+                        Content<br>
+                        Editor-in-chief: Jamilya Alekseevna Spiridonova<br><br>
+                        Technical support<br>
+                        info@help.media<br><br>
+                        Rules for the use of materials<br>
+                        User agreement<br>
+                        Cookie Policy
+                    </div>
+                    
+                    <div class="subscribe-meta-right">
+                        <!-- Ссылки на другие страницы/разделы -->
+                        <a href="#history">history</a>
+                        <a href="#country">country</a>
+                        <a href="#artist">artists</a>
+                        <a href="#artifacts">instruments</a>
+                        <a href="#articals">articles</a>
+                    </div>
+                </div>
+                
+                <div class="subscribe-form-wrapper">
+                    <form class="subscribe-form" id="subscribeForm">
+                        <input
+                            type="email"
+                            class="subscribe-input"
+                            id="emailInput"
+                            placeholder="Your email address"
+                            required
+                        >
+                    </form>
+                    <button type="submit" form="subscribeForm" class="subscribe-button">
+                        <i>GO—</i>
+                    </button>
+                </div>
             </div>
-          </div>
-          <div class="subscribe-form-wrapper">
-            <form class="subscribe-form" id="subscribeForm">
-              <input
-                type="email"
-                class="subscribe-input"
-                id="emailInput"
-                placeholder="Your email address"
-                required
-              >
-            </form>
-            <button type="submit" form="subscribeForm" class="subscribe-button">
-              <i>GO—</i>
-            </button>
-          </div>
         </div>
     </div>
 
@@ -574,6 +577,7 @@
 </body>
 
 </html>
+
 
 
 
