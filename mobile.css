@@ -4,7 +4,7 @@
 @media (max-width: 768px) {
     /* Общие настройки */
     * {
-        max-width: 70vw;
+        max-width: 50vw;
         overflow-x: hidden;
     }
     
@@ -703,3 +703,4 @@
     }
 
 }
+
