@@ -997,167 +997,378 @@
 </div>
 
 <script>
-  // Показ/скрытие информации о сайте
-  const infoToggle = document.getElementById('infoToggle');
-  const siteInfo = document.getElementById('siteInfo');
-
-  infoToggle.addEventListener('click', () => {
-    siteInfo.classList.toggle('visible');
-  });
-
-  // Read more функционал
-  const readMoreBtn = document.getElementById('readMoreBtn');
-  const artistExtra = document.getElementById('artistExtra');
-
-  readMoreBtn.addEventListener('click', () => {
-    artistExtra.classList.toggle('visible');
-    readMoreBtn.textContent = artistExtra.classList.contains('visible') ? 'Read less' : 'Read more';
-  });
-
-  // Аудиоплеер
-  const audio = document.getElementById('audioPlayer');
-  const currentSongTitle = document.getElementById('currentSongTitle');
-  const currentSongArtist = document.getElementById('currentSongArtist');
-  const songsGrid = document.getElementById('songsGrid');
-  const seekBar = document.getElementById('seekBar');
-  const currentTimeLabel = document.getElementById('currentTime');
-  const durationLabel = document.getElementById('duration');
-
-  const playBtn = document.getElementById('playBtn');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  let currentIndex = -1;
-  let songs = Array.from(document.querySelectorAll('.song-item'));
-
-  // Устанавливаем длительность по умолчанию
-  durationLabel.textContent = '5:00';
-
-  function loadSong(index) {
-    const item = songs[index];
-    if (!item) return;
-
-    const src = item.dataset.src;
-    const title = item.dataset.title;
-
-    currentIndex = index;
-    audio.src = src;
-    currentSongTitle.textContent = title;
-    currentSongArtist.textContent = 'Sombr';
+  // УНИВЕРСАЛЬНЫЙ АУДИОПЛЕЕР ДЛЯ ВСЕХ СТРАНИЦ АРТИСТОВ
+  
+  // 1. Получаем имя артиста из заголовка или из данных
+  function getArtistName() {
+    // Пробуем получить из заголовка страницы
+    const pageTitle = document.title.toLowerCase();
+    if (pageTitle.includes('david bowie')) return 'David Bowie';
+    if (pageTitle.includes('kate bush')) return 'Kate Bush';
+    if (pageTitle.includes('sombr')) return 'Sombr';
+    if (pageTitle.includes('radiohead')) return 'Radiohead';
+    if (pageTitle.includes('the beatles') || pageTitle.includes('beatles')) return 'The Beatles';
+    if (pageTitle.includes('alex g')) return 'Alex G';
+    if (pageTitle.includes('tv girl')) return 'TV Girl';
     
-    // Обновляем обложку в плеере
-    const playerCover = document.getElementById('playerCover');
-    if (playerCover) {
-      const coverUrl = item.querySelector('.song-cover-small')?.style.backgroundImage || 'url(../images/albomsombr2.webp)';
-      playerCover.style.backgroundImage = coverUrl;
+    // Пробуем получить из имени артиста на странице
+    const artistNameElement = document.querySelector('.artist-name');
+    if (artistNameElement) {
+      return artistNameElement.textContent.trim();
     }
     
-    // Снимаем выделение со всех строк
-    songs.forEach(row => {
-      row.style.backgroundColor = '';
-    });
+    // Пробуем получить из первой песни
+    const firstSong = document.querySelector('.song-artist');
+    if (firstSong) {
+      return firstSong.textContent.trim();
+    }
     
-    // Выделяем текущий трек
-    item.style.backgroundColor = 'rgba(0, 211, 255, 0.1)';
-    
-    audio.play();
-    playBtn.textContent = '❚❚';
+    // По умолчанию
+    return 'Artist';
   }
 
-  songsGrid.addEventListener('click', (e) => {
-    const item = e.target.closest('.song-item');
-    if (!item) return;
-    const index = parseInt(item.dataset.index, 10);
-    loadSong(index);
-  });
+  // 2. Инициализация плеера
+  function initAudioPlayer() {
+    const audio = document.getElementById('audioPlayer');
+    const currentSongTitle = document.getElementById('currentSongTitle');
+    const currentSongArtist = document.getElementById('currentSongArtist');
+    const songsGrid = document.getElementById('songsGrid');
+    const seekBar = document.getElementById('seekBar');
+    const currentTimeLabel = document.getElementById('currentTime');
+    const durationLabel = document.getElementById('duration');
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const playerCover = document.getElementById('playerCover');
 
-  playBtn.addEventListener('click', () => {
-    if (!audio.src && songs[0]) {
-      loadSong(0);
+    const artistName = getArtistName();
+    let currentIndex = -1;
+    let songs = [];
+    let isPlaying = false;
+    let currentAudioSource = null;
+
+    // Проверяем все необходимые элементы
+    if (!audio || !songsGrid || songsGrid.children.length === 0) {
+      console.log('Аудиоплеер не может быть инициализирован: отсутствуют необходимые элементы');
       return;
     }
-    if (audio.paused) {
-      audio.play();
-      playBtn.textContent = '❚❚';
-    } else {
-      audio.pause();
-      playBtn.textContent = '▶';
-    }
-  });
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex <= 0) {
-      currentIndex = songs.length - 1;
-    } else {
-      currentIndex -= 1;
-    }
-    loadSong(currentIndex);
-  });
+    // Собираем все песни
+    songs = Array.from(document.querySelectorAll('.song-item'));
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex >= songs.length - 1) {
-      currentIndex = 0;
-    } else {
-      currentIndex += 1;
-    }
-    loadSong(currentIndex);
-  });
-
-  function formatTime(sec) {
-    sec = Math.floor(sec);
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return m + ':' + (s < 10 ? '0' + s : s);
-  }
-
-  audio.addEventListener('loadedmetadata', () => {
-    durationLabel.textContent = formatTime(audio.duration || 300);
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    if (!isNaN(audio.duration) && audio.duration > 0) {
-      const value = (audio.currentTime / audio.duration) * 100;
-      seekBar.value = value;
-      currentTimeLabel.textContent = formatTime(audio.currentTime);
-    } else {
-      // Если аудио не загружено, имитируем прогресс
-      const fakeTime = (audio.currentTime || 0) + 0.1;
-      if (fakeTime < 300) { // 5 минут = 300 секунд
-        currentTimeLabel.textContent = formatTime(fakeTime);
-        seekBar.value = (fakeTime / 300) * 100;
+    // Устанавливаем первую песню по умолчанию
+    function setDefaultSong() {
+      if (songs.length > 0) {
+        const firstSong = songs[0];
+        const songTitle = firstSong.getAttribute('data-title') || 
+                         firstSong.querySelector('.song-title')?.textContent || 
+                         'Track 1';
+        
+        if (currentSongTitle) currentSongTitle.textContent = songTitle;
+        if (currentSongArtist) currentSongArtist.textContent = artistName;
+        
+        // Устанавливаем обложку
+        if (playerCover && firstSong.querySelector('.song-cover-small')) {
+          const coverStyle = firstSong.querySelector('.song-cover-small').style.backgroundImage;
+          if (coverStyle && coverStyle !== 'none') {
+            playerCover.style.backgroundImage = coverStyle;
+          }
+        }
       }
     }
-  });
 
-  seekBar.addEventListener('input', () => {
-    if (!isNaN(audio.duration) && audio.duration > 0) {
-      const time = (seekBar.value / 100) * audio.duration;
-      audio.currentTime = time;
-    } else {
-      // Для демо: устанавливаем время на основе 5-минутной длины
-      const time = (seekBar.value / 100) * 300;
-      audio.currentTime = time;
-      currentTimeLabel.textContent = formatTime(time);
+    // Загрузка и воспроизведение песни
+    function loadSong(index) {
+      const item = songs[index];
+      if (!item) return;
+
+      const src = item.getAttribute('data-src');
+      const title = item.getAttribute('data-title') || 
+                   item.querySelector('.song-title')?.textContent || 
+                   `Track ${index + 1}`;
+
+      if (!src) {
+        console.error('Нет источника аудио для трека', index);
+        return;
+      }
+
+      currentIndex = index;
+      
+      // Обновляем информацию в плеере
+      if (currentSongTitle) currentSongTitle.textContent = title;
+      if (currentSongArtist) currentSongArtist.textContent = artistName;
+      
+      // Обновляем обложку
+      if (playerCover && item.querySelector('.song-cover-small')) {
+        const coverStyle = item.querySelector('.song-cover-small').style.backgroundImage;
+        if (coverStyle && coverStyle !== 'none') {
+          playerCover.style.backgroundImage = coverStyle;
+        }
+      }
+      
+      // Снимаем выделение со всех песен
+      songs.forEach(song => {
+        song.style.backgroundColor = '';
+      });
+      
+      // Выделяем текущую песню
+      item.style.backgroundColor = 'rgba(0, 245, 255, 0.1)';
+      
+      // Загружаем и воспроизводим аудио
+      audio.src = src;
+      currentAudioSource = src;
+      
+      audio.load();
+      playAudio();
     }
+
+    // Воспроизведение аудио
+    function playAudio() {
+      audio.play()
+        .then(() => {
+          isPlaying = true;
+          if (playBtn) playBtn.textContent = '❚❚';
+        })
+        .catch(error => {
+          console.log('Для воспроизведения требуется взаимодействие пользователя');
+          isPlaying = false;
+          if (playBtn) playBtn.textContent = '▶';
+        });
+    }
+
+    // Форматирование времени
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // 3. Назначаем обработчики событий
+
+    // Клик по песне в списке
+    songsGrid.addEventListener('click', (e) => {
+      const songItem = e.target.closest('.song-item');
+      if (!songItem) return;
+      
+      const index = parseInt(songItem.getAttribute('data-index'), 10);
+      if (isNaN(index)) return;
+      
+      if (index === currentIndex && isPlaying) {
+        // Пауза, если кликнули на текущую играющую песню
+        audio.pause();
+        isPlaying = false;
+        if (playBtn) playBtn.textContent = '▶';
+      } else {
+        // Загрузка новой песни
+        loadSong(index);
+      }
+    });
+
+    // Кнопка Play/Pause
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (currentIndex === -1 && songs.length > 0) {
+          // Если ничего не играет, загружаем первую песню
+          loadSong(0);
+        } else if (isPlaying) {
+          audio.pause();
+          isPlaying = false;
+          playBtn.textContent = '▶';
+        } else {
+          playAudio();
+        }
+      });
+    }
+
+    // Кнопка "Предыдущая"
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (songs.length === 0) return;
+        
+        if (currentIndex <= 0) {
+          currentIndex = songs.length - 1;
+        } else {
+          currentIndex -= 1;
+        }
+        loadSong(currentIndex);
+      });
+    }
+
+    // Кнопка "Следующая"
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (songs.length === 0) return;
+        
+        if (currentIndex >= songs.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex += 1;
+        }
+        loadSong(currentIndex);
+      });
+    }
+
+    // Прогресс-бар
+    if (seekBar) {
+      seekBar.addEventListener('input', () => {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          const time = (seekBar.value / 100) * audio.duration;
+          audio.currentTime = time;
+        }
+      });
+      
+      seekBar.addEventListener('change', () => {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          const time = (seekBar.value / 100) * audio.duration;
+          audio.currentTime = time;
+        }
+      });
+    }
+
+    // 4. Обработчики событий аудио
+
+    audio.addEventListener('loadedmetadata', () => {
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        if (durationLabel) {
+          durationLabel.textContent = formatTime(audio.duration);
+        }
+      } else {
+        // Устанавливаем дефолтную длительность
+        if (durationLabel) {
+          durationLabel.textContent = '5:00';
+        }
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!isNaN(audio.duration) && audio.duration > 0) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        if (seekBar) seekBar.value = progress;
+        if (currentTimeLabel) {
+          currentTimeLabel.textContent = formatTime(audio.currentTime);
+        }
+      } else {
+        // Демо-режим для предпрослушивания
+        if (currentTimeLabel) {
+          currentTimeLabel.textContent = formatTime(audio.currentTime);
+        }
+      }
+    });
+
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      if (playBtn) playBtn.textContent = '▶';
+    });
+
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      if (playBtn) playBtn.textContent = '❚❚';
+    });
+
+    audio.addEventListener('ended', () => {
+      // Автопереход к следующей песне
+      if (songs.length > 0) {
+        if (currentIndex >= songs.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex += 1;
+        }
+        loadSong(currentIndex);
+      }
+    });
+
+    audio.addEventListener('error', (e) => {
+      console.error('Ошибка загрузки аудио:', e);
+      console.error('Источник:', audio.src);
+      
+      // Пробуем альтернативный источник
+      if (currentIndex >= 0 && currentIndex < songs.length) {
+        const item = songs[currentIndex];
+        const altSrc = item.getAttribute('data-alt-src');
+        if (altSrc) {
+          console.log('Пробуем альтернативный источник:', altSrc);
+          audio.src = altSrc;
+          audio.load();
+          playAudio();
+        }
+      }
+    });
+
+    // 5. Горячие клавиши
+    document.addEventListener('keydown', (e) => {
+      // Пробел - play/pause
+      if (e.code === 'Space' && !e.target.matches('input, textarea, button, [contenteditable]')) {
+        e.preventDefault();
+        if (playBtn) playBtn.click();
+      }
+      
+      // Стрелка влево - предыдущий трек
+      if (e.code === 'ArrowLeft' && e.altKey) {
+        e.preventDefault();
+        if (prevBtn) prevBtn.click();
+      }
+      
+      // Стрелка вправо - следующий трек
+      if (e.code === 'ArrowRight' && e.altKey) {
+        e.preventDefault();
+        if (nextBtn) nextBtn.click();
+      }
+    });
+
+    // 6. Инициализация
+    setDefaultSong();
+    
+    // Выводим информацию для отладки
+    console.log(`Аудиоплеер инициализирован для: ${artistName}`);
+    console.log(`Найдено песен: ${songs.length}`);
+    
+    // Проверяем пути к аудиофайлам
+    songs.forEach((song, index) => {
+      const src = song.getAttribute('data-src');
+      console.log(`Песня ${index}:`, src ? '✓' : '✗', src || 'Нет источника');
+    });
+  }
+
+  // 7. Инициализируем при загрузке страницы
+  document.addEventListener('DOMContentLoaded', () => {
+    // Небольшая задержка для полной загрузки DOM
+    setTimeout(initAudioPlayer, 100);
   });
 
-  audio.addEventListener('pause', () => {
-    playBtn.textContent = '▶';
-  });
-
-  audio.addEventListener('play', () => {
-    playBtn.textContent = '❚❚';
-  });
-
-  // Загружаем первый трек по умолчанию
-  window.addEventListener('DOMContentLoaded', () => {
-    if (songs[0]) {
-      const firstSong = songs[0];
-      currentSongTitle.textContent = firstSong.dataset.title;
-      currentSongArtist.textContent = 'Sombr';
+  // 8. Функции для информации о сайте и "Read more"
+  document.addEventListener('DOMContentLoaded', () => {
+    // Информация о сайте
+    const infoToggle = document.getElementById('infoToggle');
+    const siteInfo = document.getElementById('siteInfo');
+    
+    if (infoToggle && siteInfo) {
+      infoToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        siteInfo.classList.toggle('visible');
+      });
+      
+      // Закрытие при клике вне
+      document.addEventListener('click', (e) => {
+        if (!infoToggle.contains(e.target) && !siteInfo.contains(e.target)) {
+          siteInfo.classList.remove('visible');
+        }
+      });
+    }
+    
+    // Read more функционал
+    const readMoreBtn = document.getElementById('readMoreBtn');
+    const artistExtra = document.getElementById('artistExtra');
+    
+    if (readMoreBtn && artistExtra) {
+      readMoreBtn.addEventListener('click', () => {
+        artistExtra.classList.toggle('visible');
+        readMoreBtn.textContent = artistExtra.classList.contains('visible') ? 'Read less' : 'Read more';
+      });
     }
   });
 </script>
 </body>
 
 </html>
+
