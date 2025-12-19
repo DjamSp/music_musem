@@ -4,7 +4,7 @@
 @media (max-width: 768px) {
     /* Общие настройки */
     * {
-        max-width: 100vw;
+        max-width: 70vw;
         overflow-x: hidden;
     }
     
@@ -701,4 +701,5 @@
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
     }
+
 }
