@@ -19,9 +19,29 @@ body {
     text-decoration: none !important;
     color: inherit;
 }
-/* Убираем подчеркивание у ссылок в блоке стран */
-.country-block a {
+.subscribe-meta-right a {
+    color: #111111;
     text-decoration: none;
+    display: block;
+}
+
+.subscribe-meta-right a:hover {
+    color: #00F5FF;
+    text-decoration: underline;
+}
+/* Адаптация изображения middle-ages-image5 */
+.middle-ages-image5 {
+    width: 500px;
+    height: 210px;
+    margin-left: 101px;
+    margin-bottom: 10px;
+    overflow: hidden; /* Предотвращаем выход за границы */
+}
+.middle-ages-image5 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .no-underline-card,
@@ -1034,6 +1054,7 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
 
 
