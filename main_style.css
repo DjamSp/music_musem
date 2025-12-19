@@ -294,16 +294,6 @@ body {
     margin-top: 150px;
     margin-bottom: 50px;
 }
-.header4 {
-    width: 100%;
-    text-align: center;
-    font-family: 'Krona One', sans-serif;
-    font-size: 64px;
-    font-weight: 1312px;
-    line-height: 1.1;
-    margin-top: 100px;
-    margin-bottom: 50px;
-}
 .orange {color: #ff0000;}
 .dif {
     position: relative;
@@ -976,8 +966,21 @@ h3 {
 }
 
 /*FOOTER*/
+.header4 {
+    width: 100%;
+    text-align: center;
+    font-family: 'Krona One', sans-serif;
+    font-size: 64px;
+    font-weight: 1312px;
+    color: #000000;
+    line-height: 1.1;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
 .section.normal {
-    padding: 101px; /* Отступы от краев */
+    padding: 101px;
+    background: #FFFBF4;
+    width: 100%;
 }
 .subscribe-meta {
     font-size: 20px;
@@ -1029,7 +1032,7 @@ h3 {
     transition:0.15s ease, transform 0.05s ease;
 }
 .subscribe-button:hover {background: #ff0000;}
-.subscribe-button:active { /* изменение цвета при нажатии */
+.subscribe-button:active {
     background: #ff0000;
     transform: translateY(1px);
 }
@@ -1054,6 +1057,7 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
 
 
