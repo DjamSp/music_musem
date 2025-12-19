@@ -20,40 +20,11 @@ body {
     color: inherit;
 }
 /* Убираем подчеркивание у всех ссылок */
-a {
-    text-decoration: none;
-}
 
 /* Убираем подчеркивание у ссылок в навигации */
 .top-nav a,
 .subscribe-meta-right a {
     text-decoration: none !important;
-}
-
-/* Убираем подчеркивание у карточек стран и артистов */
-.item a,
-.music-card a {
-    text-decoration: none !important;
-}
-
-/* Убираем подчеркивание при наведении на ссылки */
-a:hover {
-    text-decoration: none;
-}
-
-/* Для кнопки MENU - если это ссылка */
-.museum-button {
-    text-decoration: none !important;
-}
-
-/* Убираем подчеркивание у всех ссылок в футере */
-.subscribe-meta-right a {
-    text-decoration: none;
-}
-
-/* Убираем подчеркивание у ссылок в карусели артистов */
-.carousel-container a {
-    text-decoration: none;
 }
 
 /* Убираем подчеркивание у ссылок в блоке стран */
@@ -1071,6 +1042,7 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
 
 
