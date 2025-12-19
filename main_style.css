@@ -967,7 +967,7 @@ h3 {
 
 .subscribe-meta-left,
 .subscribe-meta-right {
-    white-space: pre-line;
+    white-space: normal;
 }
 .subscribe-form-wrapper {
     display: flex;
@@ -1030,5 +1030,6 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
 
