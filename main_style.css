@@ -15,7 +15,17 @@ body {
     overflow-x: hidden;
     background: #000000;
 }
+.no-underline-card {
+    text-decoration: none !important;
+    color: inherit;
+}
 
+.no-underline-card,
+.no-underline-card *,
+.no-underline-card:hover,
+.no-underline-card:hover * {
+    text-decoration: none !important;
+}
 /* ===== ГЛАВНЫЙ ЭКРАН (полноэкранный) ===== */
 .main-content {
     height: 100vh;
@@ -1020,4 +1030,5 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
