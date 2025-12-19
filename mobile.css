@@ -15,7 +15,7 @@
     
     /* ГЛАВНЫЙ ЭКРАН */
     .main-content {
-        height: 70vh;
+        height: 50vh;
         padding: 30px 20px !important;
         justify-content: center;
         align-items: center;
@@ -703,5 +703,6 @@
     }
 
 }
+
 
 
