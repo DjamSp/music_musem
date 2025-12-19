@@ -19,14 +19,6 @@ body {
     text-decoration: none !important;
     color: inherit;
 }
-/* Убираем подчеркивание у всех ссылок */
-
-/* Убираем подчеркивание у ссылок в навигации */
-.top-nav a,
-.subscribe-meta-right a {
-    text-decoration: none !important;
-}
-
 /* Убираем подчеркивание у ссылок в блоке стран */
 .country-block a {
     text-decoration: none;
@@ -1042,6 +1034,7 @@ h3 {
     background: #FFFBF4;
 
 }
+
 
 
 
